@@ -4,8 +4,6 @@
  * Copyright (c) 2018-2022 Larry Aasen. All rights reserved.
  */
 
-import 'dart:convert' show utf8;
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -65,15 +63,7 @@ class Appcast {
   }
 
   /// Download the Appcast from [appCastURL].
-  Future<List<AppcastItem>?> parseAppcastItemsFromUri(String appCastURL) async {
-    http.Response response;
-    try {
-      response = await client!.get(Uri.parse(appCastURL));
-    } catch (e) {
-      print(e);
-      return null;
-    }
-    final contents = utf8.decode(response.bodyBytes);
+  Future<List<AppcastItem>?> parseAppcastItemsFromUri(String contents) async {
     return parseAppcastItems(contents);
   }
 

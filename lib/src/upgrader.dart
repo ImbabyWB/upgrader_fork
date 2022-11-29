@@ -41,11 +41,11 @@ enum UpgradeDialogStyle { cupertino, material }
 /// names, such as "android", "ios".
 class AppcastConfiguration {
   final List<String>? supportedOS;
-  final String? url;
+  final String? contents;
 
   AppcastConfiguration({
     this.supportedOS,
-    this.url,
+    this.contents,
   });
 }
 
@@ -251,7 +251,7 @@ class Upgrader {
       }
 
       final appcast = this.appcast ?? Appcast(client: client);
-      await appcast.parseAppcastItemsFromUri(appcastConfig!.url!);
+      await appcast.parseAppcastItemsFromUri(appcastConfig!.contents!);
       if (debugLogging) {
         var count = appcast.items == null ? 0 : appcast.items!.length;
         print('upgrader: appcast item count: $count');
@@ -342,8 +342,8 @@ class Upgrader {
 
   bool _isAppcastThisPlatform() {
     if (appcastConfig == null ||
-        appcastConfig!.url == null ||
-        appcastConfig!.url!.isEmpty) {
+        appcastConfig!.contents == null ||
+        appcastConfig!.contents!.isEmpty) {
       return false;
     }
 
